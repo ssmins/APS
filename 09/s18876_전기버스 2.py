@@ -12,20 +12,25 @@ def check(x):
     charge = charge_volume[0] - 1 # 맨 처음 곳에서 배터리 받아서 출발, 다음 지점 도착을 전제로 해서 (-1)
     global min_count
 
-    for i in range(1, N-1): # charge_volume 리스트를 순회하면서 값 추가, 두 번째 위치부터
+    # [가지치기 1] charge_volume 리스트를 순회하면서 값 추가, 두 번째 위치부터
+    for i in range(1, N-1):
         if x & 0x1: # 충전하기로 했다면
-
-            # 충전한다면, count +=1 해주고, 그 지점에서의 충전량 +=1 해주기
-            if charge == 0: # 그런데 해당 지점에 도착했을 때 연료가 0이면 의미 없어.
-                count = float('inf') # 종료되어도 최소 count값에 영향 x
-                break # for 문 아예 종료
             count += 1 # 충전횟수 추가
             charge += charge_volume[i]
-
         x >>= 1
         charge -= 1 # 다음 지점으로 가는 데 드는 연료
-        if charge < 0: # 다음 지점으로 갈 연료가 남아 있어야 마지막 인덱스에 닿는다.
-            break
+
+        # [가지치기 2] 다음 지점 진행이 불가능할 때
+        if charge < 0: # 다음 지점으로 갈 연료가 남아있지 않다면
+            return # for 문 아예 종료 -> 다른 x로 넘어간다.
+
+        # [가지치기 3] count가 min_count보다 이미 넘었을 때
+        if count >= min_count:
+            return
+
+        # [가지치기 4] 충전을 더 이상 하지 않아도 될 경우
+        if charge >= (N-1-i):
+            break # 이 때, return이 아니라 break를 하면 for 문만 끝나서 아래 최소값연산을 수행한다.
 
     if count < min_count:
         min_count = count
