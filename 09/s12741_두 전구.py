@@ -1,5 +1,7 @@
 ''''''
 
+'''
+# 풀이 1 
 T = int(input())
 result_list = []
 for testcase in range(1, T+1):
@@ -11,6 +13,24 @@ for testcase in range(1, T+1):
         result = 0
 
     result_list.append(result)
+
+for index, value in enumerate(result_list, 1):
+    print(f'#{index} {value}')
+'''
+
+# 풀이 2
+T = int(input())
+result_list = []
+for testcase in range(1, T+1):
+    result = [0] * 101  # 문제 조건
+    A1, A2, B1, B2 = map(int, input().split())
+
+    for i in range(A1, A2):
+        result[i] += 1
+    for j in range(B1, B2):
+        result[j] += 1
+
+    result_list.append(result.count(2))
 
 for index, value in enumerate(result_list, 1):
     print(f'#{index} {value}')
