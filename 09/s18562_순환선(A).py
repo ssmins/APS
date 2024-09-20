@@ -10,7 +10,7 @@ def dfs(x, points):
             max_val
         return
 
-    for i in range()
+    for i in range():
 
 
 T = int(input())
