@@ -5,9 +5,9 @@
 5
 40 10 10 30 10
 '''
-40 + 10 , 30 + 10
-50 40 10
-90 50
-140
-50 10 40
-60 40
+
+N = int(input())
+level = list(map(int, input().split()))
+
+gold = max(level)*(N-1) + sum(level)-max(level)
+print(gold)
